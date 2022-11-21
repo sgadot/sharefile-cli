@@ -1,0 +1,48 @@
+plugins {
+    id("groovy") 
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.6.3"
+}
+
+version = "0.1"
+group = "com.acrotec"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("info.picocli:picocli")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("io.micronaut.groovy:micronaut-runtime-groovy")
+    implementation("io.micronaut.picocli:micronaut-picocli")
+    implementation("io.micronaut.security:micronaut-security-oauth2")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    compileOnly("info.picocli:picocli-codegen")
+    compileOnly("io.micronaut:micronaut-http-validation")
+    compileOnly("io.micronaut.security:micronaut-security-annotations")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    implementation("io.micronaut:micronaut-validation")
+
+}
+
+
+application {
+    mainClass.set("com.acrotec.SharefileCliCommand")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
+
+micronaut {
+    testRuntime("spock2")
+    processing {
+        incremental(true)
+        annotations("com.acrotec.*")
+    }
+}
+
+
+
